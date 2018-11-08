@@ -15,12 +15,12 @@ to other languages.
 Deck Codes are URL friendly base64 encoded strings that allow communication of deck contents.
 They will always begin with the characters ADC followed by the encoded string.
 
-The Artifact Website supports viewing of decks via deck codes via a URL of the form:
+The Artifact Website supports viewing of decks via a URL of the form:
 
 ```https://playartifact.com/d/<deck code >```
 
 We encourage people to encode and generate a URL for sharing as this URL will show deck
-preview in Twitter, Facebook, Steam and other applications which support Open Graph
+previews on Twitter, Facebook, Steam and other applications which support Open Graph
 and oEmbed.
 
 ### Example Deck Codes:
