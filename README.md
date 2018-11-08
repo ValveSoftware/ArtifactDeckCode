@@ -7,12 +7,13 @@ to other languages.
 
 ### Contents
 
-* deck_encoder.php - the deck encoder used to convert a deck into into text code
+* deck_encoder.php - the deck encoder used to convert deck info into a text code
 * deck_decoder.php - the deck decoder used to take a text code and return the deck info
 
 ### About Deck Codes
 
 Deck Codes are URL friendly base64 encoded strings that allow communication of deck contents.
+They will always begin with the characters ADC followed by the encoded string.
 
 The Artifact Website supports viewing of decks via deck codes via a URL of the form:
 
