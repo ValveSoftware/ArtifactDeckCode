@@ -25,7 +25,8 @@ and oEmbed.
 ### Example Deck Codes:
 Example Green Black
 
-```https://playartifact.com/d/ADCJWkTZX05uwGDCRV4XQGy3QGLmqUBg4GQJgGLGgO7AaABRXhhbXBsZSBHcmVlbiBCbGFjaw__```
+```
+https://playartifact.com/d/ADCJWkTZX05uwGDCRV4XQGy3QGLmqUBg4GQJgGLGgO7AaABRXhhbXBsZSBHcmVlbiBCbGFjaw__
 
 Heroes:
 1 Lycan
@@ -52,11 +53,12 @@ Item Deck:
 1 Red Mist Maul
 1 Leather Armor
 2 Traveler's Cloak
-
+```
 
 Example Red Blue
 
-```https://playartifact.com/d/ADCJcUQI30zuwEYg2ABeF1Bu94BmW4BSQu0AqUBlqQBiYeHRXhhbXBsZSBSZWQgQmx1ZQ__```
+```
+https://playartifact.com/d/ADCJcUQI30zuwEYg2ABeF1Bu94BmW4BSQu0AqUBlqQBiYeHRXhhbXBsZSBSZWQgQmx1ZQ__
 
 Heroes:
 1 Keefe the Bold
@@ -82,6 +84,7 @@ Item Deck:
 2 Phase Boots
 2 Leather Armor
 2 Traveler's Cloak
+```
 
 
 Usage
