@@ -10,6 +10,17 @@ to other languages.
 * deck_encoder.php - the deck encoder used to convert a deck into into text code
 * deck_decoder.php - the deck decoder used to take a text code and return the deck info
 
+### About Deck Codes
+
+Deck Codes are URL friendly base64 encoded strings that allow communication of deck contents.
+
+The Artifact Website supports viewing of decks via deck codes via a URL of the form:
+
+```https://playartifact.com/d/<deck code >```
+
+We encourage people to encode and generate a URL for sharing as this URL will show deck
+preview in Twitter, Facebook, Steam and other applications which support Open Graph
+and oEmbed.
 
 Usage
 ---
@@ -43,11 +54,13 @@ text, you will need to do a 2 stage request to our servers.  The first request i
 information for the set.  Current supported sets are 00 and 01.  You will need both to make get
 all currently available card.
 
-First do a call to https://playartifact.com/cardset/setid/.  where setid is 00 or 01 You will receieve 
+First do a call to the url of the below form where setid is 00 or 01 You will receieve 
 a response similar to the one below.
 
 
 ```
+https://playartifact.com/cardset/<setid>/
+
 {
   "cdn_root": "https:\/\/<some host>\/",
   "url": "\/<some path>\/somefile.json",
@@ -89,7 +102,7 @@ The response will look similar to the one below for set 00
         "default": "<url to png>"
       },
       "ingame_image": {
-        "default": "<url to png>
+        "default": "<url to png>"
       },
       "is_green": true,
       "attack": 4,
