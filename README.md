@@ -27,10 +27,62 @@ Example Green Black
 
 ```https://playartifact.com/d/ADCJWkTZX05uwGDCRV4XQGy3QGLmqUBg4GQJgGLGgO7AaABRXhhbXBsZSBHcmVlbiBCbGFjaw__```
 
+Heroes:
+1 Lycan
+1 Rix
+1 Phantom Assassin
+1 Debbi the Cunning
+1 Chen
+
+Main Deck:
+3 Pick Off
+3 Payday
+3 Steam Cannon
+3 Mist of Avernus
+3 Selemene's Favor
+3 Iron Fog Goldmine
+3 Untested Grunt
+3 Thunderhide Pack
+3 Revtel Convoy
+
+Item Deck:
+1 Apotheosis Blade
+1 Horn of the Alpha
+3 Poaching Knife
+1 Red Mist Maul
+1 Leather Armor
+2 Traveler's Cloak
+
 
 Example Red Blue
 
 ```https://playartifact.com/d/ADCJcUQI30zuwEYg2ABeF1Bu94BmW4BSQu0AqUBlqQBiYeHRXhhbXBsZSBSZWQgQmx1ZQ__```
+
+Heroes:
+1 Keefe the Bold
+1 Luna
+1 Bristleback
+1 Zeus
+1 Earthshaker
+
+Main Deck:
+3 Time of Triumph
+3 Ventriloquy
+3 Cunning Plan
+3 Tower Barrage
+3 New Orders
+3 Clear the Deck
+3 Foresight
+3 Conflagration
+3 Red Mist Pillager
+
+Item Deck:
+1 Red Mist Maul
+2 Blade of the Vigil
+2 Phase Boots
+2 Leather Armor
+2 Traveler's Cloak
+
 
 Usage
 ---
