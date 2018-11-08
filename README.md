@@ -24,10 +24,11 @@ and oEmbed.
 
 ### Example Deck Codes:
 Example Green Black
-https://playartifact.com/d/ADCJWkTZX05uwGDCRV4XQGy3QGLmqUBg4GQJgGLGgO7AaABRXhhbXBsZSBHcmVlbiBCbGFjaw__
+```https://playartifact.com/d/ADCJWkTZX05uwGDCRV4XQGy3QGLmqUBg4GQJgGLGgO7AaABRXhhbXBsZSBHcmVlbiBCbGFjaw__```
+
 
 Example Red Blue
-https://playartifact.com/d/ADCJcUQI30zuwEYg2ABeF1Bu94BmW4BSQu0AqUBlqQBiYeHRXhhbXBsZSBSZWQgQmx1ZQ__
+```https://playartifact.com/d/ADCJcUQI30zuwEYg2ABeF1Bu94BmW4BSQu0AqUBlqQBiYeHRXhhbXBsZSBSZWQgQmx1ZQ__```
 
 Usage
 ---
