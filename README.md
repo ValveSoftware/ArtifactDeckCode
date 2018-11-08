@@ -56,7 +56,7 @@ similar to the one below.
 ```
 
 After receiving the response, you must then request the JSON file at from the host specified.
-In this example, https://<some host>/<some path>/somefile.json".  Please cache the
+In this example, https:\/\/<some host>\/<some path>\/somefile.json".  Please cache the
 provided JSON for AT LEAST until the expire time provided.
 
 The response will look similar to the one below for set 00
