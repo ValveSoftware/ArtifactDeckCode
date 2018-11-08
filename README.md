@@ -43,8 +43,8 @@ text, you will need to do a 2 stage request to our servers.  The first request i
 information for the set.  Current supported sets are 00 and 01.  You will need both to make get
 all currently available card.
 
-First do a call to https://playartifact.com/cardset/\<setid\>/.  You will receieve a response
-similar to the one below.
+First do a call to https://playartifact.com/cardset/setid/.  where setid is 00 or 01 You will receieve 
+a response similar to the one below.
 
 
 ```
