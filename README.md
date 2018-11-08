@@ -22,6 +22,13 @@ We encourage people to encode and generate a URL for sharing as this URL will sh
 preview in Twitter, Facebook, Steam and other applications which support Open Graph
 and oEmbed.
 
+### Example Deck Codes:
+Example Green Black
+https://playartifact.com/d/ADCJWkTZX05uwGDCRV4XQGy3QGLmqUBg4GQJgGLGgO7AaABRXhhbXBsZSBHcmVlbiBCbGFjaw__
+
+Example Red Blue
+https://playartifact.com/d/ADCJcUQI30zuwEYg2ABeF1Bu94BmW4BSQu0AqUBlqQBiYeHRXhhbXBsZSBSZWQgQmx1ZQ__
+
 Usage
 ---
 The specification for the deck is a series of nested arrays in the structure below:
