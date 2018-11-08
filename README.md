@@ -159,7 +159,7 @@ The response will look similar to the one below for set 00
         "english": "Farvhan the Dreamer"
       },
       "card_text": {
-        "english": "Pack Leadership<BR>\n{s:thisCardName}'s allied neighbors have +1 Armor."
+        "english": "Pack Leadership<BR>\nFarvhan the Dreamer's allied neighbors have +1 Armor."
       },
       "mini_image": {
         "default": "<url to png>"
