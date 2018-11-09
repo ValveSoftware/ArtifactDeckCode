@@ -179,12 +179,8 @@ The response will look similar to the one below for set 00
           "count": 3
         },
         {
-          "card_id": 4002,
-          "ref_type": "references"
-        },
-        {
           "card_id": 4001,
-          "ref_type": "references"
+          "ref_type": "passive_ability"
         }
       ]
 
