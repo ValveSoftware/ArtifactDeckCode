@@ -25,10 +25,10 @@ previews on Twitter, Facebook, Steam and other applications which support Open G
 and oEmbed.
 
 ### Example Deck Codes:
-Example Green Black
+Green/Black Example
 
 ```
-https://playartifact.com/d/ADCJWkTZX05uwGDCRV4XQGy3QGLmqUBg4GQJgGLGgO7AaABRXhhbXBsZSBHcmVlbiBCbGFjaw__
+https://playartifact.com/d/ADCJWkTZX05uwGDCRV4XQGy3QGLmqUBg4GQJgGLGgO7AaABR3JlZW4vQmxhY2sgRXhhbXBsZQ__
 
 Heroes:
 1 Lycan
@@ -57,10 +57,10 @@ Item Deck:
 2 Traveler's Cloak
 ```
 
-Example Red Blue
+Blue/Red Example
 
 ```
-https://playartifact.com/d/ADCJcUQI30zuwEYg2ABeF1Bu94BmW4BSQu0AqUBlqQBiYeHRXhhbXBsZSBSZWQgQmx1ZQ__
+https://playartifact.com/d/ADCJQUQI30zuwEYg2ABeF1Bu94BmWIBTEkLtAKlAZakAYmHh0JsdWUvUmVkIEV4YW1wbGU_
 
 Heroes:
 1 Keefe the Bold
