@@ -203,8 +203,10 @@ The response will look similar to the one below for set 00
 * Text fields (card_name, card_text and the name on set_info) will contain 
 english and additional languages.
 * Image fields (mini-image, large-image, ingame-image) provide a default image and keys 
-for each supported language.  
-* "ref_type" : "includes" specify cards which get auto included into decks when the card is
+for each supported language. 
+* ref_type indicates a type of card reference:
+  * "includes" - specifies cards which get automatically included into decks when the card is
 added.  These should NOT be sent to the deck encoder.
-* "ref_type" : "references" typically refer to hero abilities or other special effects a card
-may have.  These should NOT be sent to the deck encoder.
+  * "references" - indicates that the card text mentions the specified card.
+  * "passive_ability" - a passive ability 
+  * "active_ability" - an ability which is activated by clicking on it.
