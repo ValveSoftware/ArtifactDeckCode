@@ -3,7 +3,8 @@ ArtifactDeckCode
 
 This repository consists of 2 files that will assist in the encoding and decoding of deck 
 codes. These are source examples in PHP that can be used as is or as reference for porting 
-to other languages.
+to other languages.  This README also contains an explanation of the card set API and 
+corresponding json responses.
 
 ### Contents
 
