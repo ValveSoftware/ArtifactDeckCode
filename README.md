@@ -112,7 +112,7 @@ array
 
 
 
-Card Data API
+Card Set API
 ---
 
 If you're making a site that needs to show card information such as card images, names, and card
