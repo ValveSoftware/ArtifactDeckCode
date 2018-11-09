@@ -121,7 +121,7 @@ text, you will need to do a 2 stage request to our servers.  The first request i
 information for the set.  Current supported sets are 00 and 01.  You will need both to make get
 all currently available cards.
 
-First, make a request to the url of the form below where setid is 00 or 01. You will receieve 
+First, make a request to the url of the form below where setid is 00 or 01. You will receive 
 a response similar to the one below.
 
 
