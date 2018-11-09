@@ -79,6 +79,7 @@ Main Deck:
 3 Foresight
 3 Conflagration
 3 Red Mist Pillager
+2 Routed
 
 Item Deck:
 1 Red Mist Maul
