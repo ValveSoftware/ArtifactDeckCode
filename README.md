@@ -193,7 +193,7 @@ The response will look similar to the one below for set 00
 }
 ```
 
-### Some Notes about the json format
+### Some notes about the json format
 
 * Currently only english is enabled, but more languages will be released at a later date
 * Text fields (card_name, card_text and the name on set_info) will contain 
@@ -201,8 +201,9 @@ english and additional languages.
 * Image fields (mini-image, large-image, ingame-image) provide a default image and keys 
 for each supported language. 
 * ref_type indicates a type of card reference:
-  * "includes" - specifies cards which get automatically included into decks when the card is
-added.  These should NOT be sent to the deck encoder.
+  * "includes" - indicates a secondary card which will be automatically included into decks when the card is
+added.  These should NOT be sent to the deck encoder.  The ref_type block will include the total count of these 
+cards that will be added.
   * "references" - indicates that the card text mentions the specified card.
   * "passive_ability" - a passive ability 
   * "active_ability" - an ability which is activated by clicking on it.
