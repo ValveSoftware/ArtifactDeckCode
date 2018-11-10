@@ -187,6 +187,7 @@ class CArtifactDeckDecoder
 		{
 			$bytes = array_slice($deckBytes, -1 * $nStringLength);
 			$name = implode(array_map("chr", $bytes));
+			// replace strip_tags with an HTML sanitizer or escaper as needed.
 			$name = strip_tags( $name );
 		}
 
