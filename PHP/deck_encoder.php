@@ -51,6 +51,7 @@ class CArtifactDeckEncoder
 		$nameLen = 0;
 		if( isset($deckContents['name']) )
 		{
+			// replace strip_tags() with your own HTML santizer or escaper.
 			$name = strip_tags( $deckContents['name'] );
 			$trimLen = strlen($name);
 			while( $trimLen > 63 )
