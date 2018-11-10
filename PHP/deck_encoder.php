@@ -71,7 +71,7 @@ class CArtifactDeckEncoder
 		if( !CArtifactDeckEncoder::AddRemainingNumberToBuffer( $countHeroes, 3, $bytes ) )
 			return false;
 
-		$checkSum = 0;
+		$unChecksum = 0;
 		$prevCardId = 0;
 		for( $unCurrHero = 0; $unCurrHero < $countHeroes; $unCurrHero++ )
 		{
