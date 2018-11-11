@@ -109,8 +109,7 @@ namespace ArtifactDeckTools
             {
                 return null;
             }
-
-            byte unChecksum = 0;
+            
             int prevCardId = 0;
 
             foreach (var hero in sortedHeroes)
@@ -122,7 +121,7 @@ namespace ArtifactDeckTools
 
                 int heroId = (int)hero["id"];
 
-                if (!AddCardToBuffer((byte)hero["turn"], heroId - prevCardId, ref bytes, ref unChecksum))
+                if (!AddCardToBuffer((byte)hero["turn"], heroId - prevCardId, ref bytes))
                 {
                     return null;
                 }
@@ -147,7 +146,7 @@ namespace ArtifactDeckTools
 
                 int cardId = (int)card["id"];
                 //record this set of cards, and advance
-                if (!AddCardToBuffer((byte)card["count"], cardId - prevCardId, ref bytes, ref unChecksum))
+                if (!AddCardToBuffer((byte)card["count"], cardId - prevCardId, ref bytes))
                 {
                     return null;
                 }
@@ -242,7 +241,7 @@ namespace ArtifactDeckTools
             return true;
         }
 
-        private static bool AddCardToBuffer( byte count, int value, ref List<byte> bytes, ref byte checkSum)
+        private static bool AddCardToBuffer( byte count, int value, ref List<byte> bytes)
         {
             //this shouldn't ever be the case
             if ( count == 0 )
