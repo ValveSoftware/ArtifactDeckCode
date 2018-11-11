@@ -115,7 +115,6 @@ array
 Usage - C#
 ---
 The specification for the deck is a JSON file. Example of the Black/Green Deck can be found in C-SHARP/Deck Examples
-```
 
 
 Card Set API
