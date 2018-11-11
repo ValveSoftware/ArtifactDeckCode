@@ -1,5 +1,7 @@
 <?php
 
+require_once( 'commonutils.php' );
+
 // Basic Deck encoder
 class CArtifactDeckEncoder
 {
@@ -71,7 +73,6 @@ class CArtifactDeckEncoder
 		if( !CArtifactDeckEncoder::AddRemainingNumberToBuffer( $countHeroes, 3, $bytes ) )
 			return false;
 
-		$unChecksum = 0;
 		$prevCardId = 0;
 		for( $unCurrHero = 0; $unCurrHero < $countHeroes; $unCurrHero++ )
 		{
@@ -79,7 +80,7 @@ class CArtifactDeckEncoder
 			if( $card['turn'] == 0 )
 				return false;
 
-			if( !CArtifactDeckEncoder::AddCardToBuffer( $card['turn'], $card['id'] - $prevCardId, $bytes, $unChecksum ) )
+			if( !CArtifactDeckEncoder::AddCardToBuffer( $card['turn'], $card['id'] - $prevCardId, $bytes ) )
 				return false;
 
 			$prevCardId = $card['id'];
@@ -99,7 +100,7 @@ class CArtifactDeckEncoder
 				return false;
 
 			//record this set of cards, and advance
-			if( !CArtifactDeckEncoder::AddCardToBuffer( $card['count'], $card['id'] - $prevCardId, $bytes, $unChecksum ) )
+			if( !CArtifactDeckEncoder::AddCardToBuffer( $card['count'], $card['id'] - $prevCardId, $bytes ) )
 				return false;
 			$prevCardId = $card['id'];
 		}
@@ -188,7 +189,7 @@ class CArtifactDeckEncoder
 		return true;
 	}
 
-	private static function AddCardToBuffer( $unCount, $unValue, &$bytes, &$unCheckSum)
+	private static function AddCardToBuffer( $unCount, $unValue, &$bytes )
 	{
 		//this shouldn't ever be the case
 		if( $unCount == 0 )
