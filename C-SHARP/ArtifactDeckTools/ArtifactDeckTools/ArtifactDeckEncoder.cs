@@ -186,8 +186,6 @@ namespace ArtifactDeckTools
             {
                 return null;
             }
-            string byteString = Encoding.ASCII.GetString(bytes.ToArray<byte>());
-            byte[] byteStringLatin = Encoding.Convert(Encoding.GetEncoding("ASCII"), Encoding.UTF8, bytes.ToArray<byte>());
             string encoded = Convert.ToBase64String(bytes.ToArray<byte>());
 
             //encoded = encoded);
