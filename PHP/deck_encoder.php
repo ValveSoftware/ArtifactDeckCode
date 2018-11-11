@@ -188,7 +188,7 @@ class CArtifactDeckEncoder
 		return true;
 	}
 
-	private static function AddCardToBuffer( $unCount, $unValue, &$bytes, &$unCheckSum)
+	private static function AddCardToBuffer( $unCount, $unValue, &$bytes)
 	{
 		//this shouldn't ever be the case
 		if( $unCount == 0 )
