@@ -1,13 +1,31 @@
 'use strict'
 
 const assert = require('assert')
-const { parseDeck } = require('../')
+const { parseDeck, encodeDeck } = require('../')
 
 const deck = require('./deck.json')
+const DECK_CODE = "ADCJWkTZX05uwGDCRV4XQGy3QGLmqUBg4GQJgGLGgO7AaABR3JlZW4vQmxhY2sgRXhhbXBsZQ__"
+
+describe('encodeDeck', function () {
+    it('should encode a deck', function () {
+        const result = encodeDeck(deck)
+        assert.equal(result, DECK_CODE)
+    })
+
+    it('should encode a deck with unordered cards and heroes', function () {
+        const newDeck = {
+            name: deck.name,
+            heroes: deck.heroes.slice(0).reverse(),
+            cards: deck.cards.slice(0).reverse()
+        }
+        const result = encodeDeck(deck)
+        assert.equal(result, DECK_CODE)
+    })
+})
 
 describe('parseDeck', function () {
     it('should decode v2 deck code', function () {
-        const result = parseDeck("ADCJWkTZX05uwGDCRV4XQGy3QGLmqUBg4GQJgGLGgO7AaABR3JlZW4vQmxhY2sgRXhhbXBsZQ__")
+        const result = parseDeck(DECK_CODE)
         assert.equal(result.name, deck.name)
         assert.equal(areTheCardArraysEqual(result.heroes, deck.heroes), true)
         assert.equal(areTheCardArraysEqual(result.cards, deck.cards), true)

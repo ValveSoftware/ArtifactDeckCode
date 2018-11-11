@@ -1,11 +1,79 @@
 'use strict'
 
 exports.parseDeck = parseDeck
+exports.encodeDeck = encodeDeck
 
 const b64 = require('base64-js')
 
 const CURRENT_VERSION = 2
 const ENCODE_PREFIX = "ADC"
+
+
+function encodeDeck(deck) {
+    if (!deck || !deck.heroes || !deck.cards) throw "invalid deck"
+
+    const heroes = deck.heroes.sort((a, b) => a.id - b.id)
+    const cards = deck.cards.sort((a, b) => a.id - b.id)
+
+    const encoder = cardEncoder()
+    encoder.writeVar(heroes.length, 3)
+    heroes.forEach(it => encoder.writeCard(it.id, it.turn))
+    encoder.resetPreviousId()
+    cards.forEach(it => encoder.writeCard(it.id, it.count))
+
+    const versionAndHeroes = CURRENT_VERSION << 4 | extractNBitsWithCarry(heroes.length, 3)
+    const checksum = computeChecksum(encoder.getBytes())
+    const name = (deck.name || "").substr(0, 63)
+
+    const header = [versionAndHeroes, checksum, name.length]
+    const nameArray = Array.apply(null, { length: name.length }).map((_, i) => name.charCodeAt(i))
+
+    const encodedDeck = b64.fromByteArray(header.concat(encoder.getBytes(), nameArray))
+    const sanitizedDeckCode = ENCODE_PREFIX + encodedDeck.replace(/\//g, "-").replace(/=/g, "_")
+
+    return sanitizedDeckCode
+}
+
+function cardEncoder() {
+    const bytes = []
+    var previousId = 0
+
+    function writeVar(value, bitsToSkip) {
+        if (value < (1 << bitsToSkip)) return
+        value = value >>> bitsToSkip
+        while (value > 0) {
+            bytes.push(extractNBitsWithCarry(value, 7))
+            value = value >>> 7
+        }
+    }
+
+    function writeCard(id, n) {
+        const nPart = n <= 3 ? n - 1 : 3
+
+        const delta = id - previousId
+        previousId = id
+        const idPart = extractNBitsWithCarry(delta, 5)
+
+        bytes.push((nPart << 6) | idPart)
+        writeVar(delta, 5)
+        if (n > 3) writeVar(n, 0)
+    }
+
+    return {
+        writeVar,
+        writeCard,
+        resetPreviousId: () => previousId = 0,
+        getBytes: () => bytes
+    }
+}
+
+function extractNBitsWithCarry(value, bits) {
+    const limitBit = 1 << bits
+    if (value < limitBit) return value
+    return limitBit | (value & (limitBit - 1))
+}
+
+
 
 function parseDeck(deckCode) {
     if (!deckCode.startsWith(ENCODE_PREFIX)) throw "invalid deck code prefix"
