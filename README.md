@@ -1,8 +1,8 @@
 ArtifactDeckCode
 ---
 
-This repository consists of 2 files that will assist in the encoding and decoding of deck 
-codes. These are source examples in PHP that can be used as is or as reference for porting 
+This repository consists of 2 libaries that will assist in the encoding and decoding of deck 
+codes. These are source examples in PHP and C# that can be used as is or as reference for porting 
 to other languages.  This README also contains an explanation of the card set API and 
 corresponding json responses.
 
@@ -21,7 +21,7 @@ The Artifact Website supports viewing of decks via a URL of the form:
 ```https://playartifact.com/d/<deck code >```
 
 We encourage people to encode and generate a URL for sharing as this URL will show deck
-previews on Twitter, Facebook, Steam and other applications which support Open Graph
+previews on Twitter, Facebook, Steam and other applications which support Open GraphW
 and oEmbed.
 
 ### Example Deck Codes:
@@ -90,7 +90,7 @@ Item Deck:
 ```
 
 
-Usage
+Usage - PHP
 ---
 The specification for the deck is a series of nested arrays in the structure below:
 ```
@@ -112,6 +112,10 @@ array
 
 ```
 
+Usage - C#
+---
+The specification for the deck is a JSON file. Example of the Black/Green Deck can be found in C-SHARP/Deck Examples
+```
 
 
 Card Set API

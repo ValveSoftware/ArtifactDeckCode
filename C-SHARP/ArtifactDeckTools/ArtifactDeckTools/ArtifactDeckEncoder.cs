@@ -1,23 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-
-namespace ArtifactDeckTools
+﻿namespace ArtifactDeckTools
 {
+    #region Using
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using Newtonsoft.Json.Linq;
+        
+    #endregion
+
+    /// <summary>
+    /// Used to encode a valid json deck for sharing with others.
+    /// </summary>
     public class ArtifactDeckEncoder
     {
+        #region Variables
+
         public static byte currentVersion = 2;
-	    private static byte maxBytesForVarUint32 = 5;
 	    private static byte headerSize = 3;
+        private static string encodedPrefix = "ADC";
+        
+        #endregion
+        
+        #region Methods
 
-	    private static string encodedPrefix = "ADC";
-
-        //expects array("heroes" => array(id, turn), "cards" => array(id, count), "name" => name)
-        //	signature cards for heroes SHOULD NOT be included in "cards"
+        /// <summary>
+        /// Expects a JObject of parsed valid json.
+        /// </summary>
+        /// <param name="deckContents"></param>
+        /// <returns>Valid deck code that can be appended to https://playartifact.com/d/ to share a deck</returns>
         public static string EncodeDeck(JObject deckContents )
         {
             if (deckContents.Count == 0 )
@@ -36,37 +48,36 @@ namespace ArtifactDeckTools
             return deckCode;
         }
 
+        /// <summary>
+        /// Expects a JObject of parsed valid json.
+        /// </summary>
+        /// <param name="deckContents"></param>
+        /// <returns>List of all the bytes to write to string</returns>
         private static List<byte> EncodeBytes(JObject deckContents)
         {
-            //Console.WriteLine(!deckContents.HasValues);
             if ( !deckContents.HasValues)
             {
                 return null;
             }
-            //Console.WriteLine(deckContents["heroes"].Count());
+
             if ( deckContents["heroes"].Count() == 0 )
             {
                 return null;
             }
-            //Console.WriteLine(deckContents["cards"].Count());
+
             if ( deckContents["cards"].Count() == 0 )
             {
                 return null;
             }
-
-
-            //var sortedDeck = deckContents;  //new JObject();
+           
             var sortedHeroes = deckContents["heroes"].OrderBy(x => x["id"]);
             var sortedCards = deckContents["cards"].OrderBy(x => x["id"]);
-            //sortedDeck.Add();
-            //sortedDeck.Add(deckContents.SelectTokens("cards").OrderBy(x => x.SelectToken("id")));
 
             int countHeroes = sortedHeroes.Count();
-            //allCards = array_merge( deckContents['heroes'], deckContents['cards']);
 
             var bytes = new List<byte>();
 
-            //our version and hero count
+            // our version and hero count
             byte version = unchecked((byte)(unchecked((byte)(currentVersion << 4)) | ExtractNBitsWithCarry(countHeroes, (byte)3)));
 
             if (!AddByte(ref bytes, version))
@@ -74,7 +85,7 @@ namespace ArtifactDeckTools
                 return null;
             }
 
-            //the checksum which will be updated at the end
+            // the checksum which will be updated at the end
             byte dummyChecksum = 0;
             int checksumByte = bytes.Count;
             if (!AddByte(ref bytes, dummyChecksum))
@@ -86,7 +97,7 @@ namespace ArtifactDeckTools
             int nameLen = 0;
             if (deckContents["name"] != null)
             {
-                // replace strip_tags() with your own HTML santizer or escaper.
+                // replace add HTML sanatizer or escaper.
                 var name = deckContents["name"].ToString();
                 var trimLen = Encoding.UTF8.GetByteCount(name);
                 while (trimLen > 63)
@@ -112,6 +123,7 @@ namespace ArtifactDeckTools
             
             int prevCardId = 0;
 
+            // grab all heros and add to buffer
             foreach (var hero in sortedHeroes)
             {
                 if ((byte)hero["turn"] == (byte)0)
@@ -128,13 +140,14 @@ namespace ArtifactDeckTools
 
                 prevCardId = heroId;
             }
-            //reset our card offset
+
+            // reset our card offset
             prevCardId = 0;
 
-            //now all of the cards
+            // now the rest of the cards
             foreach (var card in sortedCards)
             {
-                //see how many cards we can group together
+                // see how many cards we can group together
                 if ((byte)card["count"] == (byte)0)
                 {
                     return null;
@@ -145,7 +158,8 @@ namespace ArtifactDeckTools
                 }
 
                 int cardId = (int)card["id"];
-                //record this set of cards, and advance
+
+                // record this set of cards, and advance
                 if (!AddCardToBuffer((byte)card["count"], cardId - prevCardId, ref bytes))
                 {
                     return null;
@@ -157,8 +171,7 @@ namespace ArtifactDeckTools
             // save off the pre string bytes for the checksum
             byte preStringByteCount = (byte)bytes.Count;
 
-            //write the string
-
+            // write the name
             byte[] nameBytes = Encoding.UTF8.GetBytes(deckContents["name"].ToString());
             foreach ( byte cByte in nameBytes)
 		    {
@@ -177,6 +190,11 @@ namespace ArtifactDeckTools
             return bytes;
         }
 
+        /// <summary>
+        /// Converts List of bytes to Base 64 string and does some cleanup.
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns>Valid deck code suffix</returns>
         private static string EncodeBytesToString( ref List<byte> bytes )
         {
 		    byte byteCount = (byte)bytes.Count;
@@ -196,12 +214,18 @@ namespace ArtifactDeckTools
             return fixedString;
         }
 
-        private static byte ExtractNBitsWithCarry(int nBits, byte carry)
+        /// <summary>
+        /// Extracts bits for writing.
+        /// </summary>
+        /// <param name="numBits"></param>
+        /// <param name="carry"></param>
+        /// <returns></returns>
+        private static byte ExtractNBitsWithCarry(int numBits, byte carry)
         {
             byte limitBit = unchecked((byte)(1 << carry));
             byte minusOne = unchecked((byte)((int)limitBit - 1 ));
-            byte result = unchecked((byte)(nBits & minusOne));
-            if ( nBits >= limitBit )
+            byte result = unchecked((byte)(numBits & minusOne));
+            if ( numBits >= limitBit )
 		    {
                 result |= limitBit;
             }
@@ -209,6 +233,12 @@ namespace ArtifactDeckTools
             return result;
         }
 
+        /// <summary>
+        /// Adds a byte to the list of bytes.
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <param name="addByte"></param>
+        /// <returns></returns>
         private static bool AddByte( ref List<byte> bytes, byte addByte )
         {
             if (addByte > 255 )
@@ -220,12 +250,16 @@ namespace ArtifactDeckTools
             return true;
         }
 
-        //utility to write the rest of a number into a buffer. This will first strip the specified N bits off, and then write a series of bytes of the structure of 1 overflow bit and 7 data bits
+        /// <summary>
+        /// Utility to write the rest of a number into a buffer. This will first strip the specified N bits off, and then write a series of bytes of the structure of 1 overflow bit and 7 data bits.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="alreadyWrittenBits"></param>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
         private static bool AddRemainingNumberToBuffer( int value, int alreadyWrittenBits, ref List<byte> bytes )
         {
-            //Console.WriteLine(value);
             value = (value >> alreadyWrittenBits);
-            //Console.WriteLine(value);
             int numBytes = 0;
             while ( value > 0 )
 		    {
@@ -239,6 +273,13 @@ namespace ArtifactDeckTools
             return true;
         }
 
+        /// <summary>
+        /// Adds a card to byte list.
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="value"></param>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
         private static bool AddCardToBuffer( byte count, int value, ref List<byte> bytes)
         {
             //this shouldn't ever be the case
@@ -290,6 +331,12 @@ namespace ArtifactDeckTools
             return true;
         }
 
+        /// <summary>
+        /// CheckSum calculation for ensuring we can decode this later.
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <param name="numBytes"></param>
+        /// <returns></returns>
         private static int ComputeChecksum( ref List<byte> bytes, byte numBytes )
         {
 		    int checksum = 0;
@@ -297,10 +344,11 @@ namespace ArtifactDeckTools
 		    {
 			    byte checkByte = bytes[addCheck];
 			    checksum += checkByte;
-                Console.WriteLine(checksum);
             }
 
             return checksum;
         }
+
+        #endregion
     }
 }

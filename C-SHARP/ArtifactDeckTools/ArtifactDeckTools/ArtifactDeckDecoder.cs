@@ -1,38 +1,51 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ArtifactDeckTools
+﻿namespace ArtifactDeckTools
 {
+    #region Using
+    
+    using Newtonsoft.Json.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    #endregion
+
+    /// <summary>
+    /// Used to decode a valid deck code for json retrieval.
+    /// </summary>
     class ArtifactDeckDecoder
     {
+        #region Variables
 
         public static int currentVersion = 2;
 	    private static string encodedPrefix = "ADC";
 
-	    //returns array("heroes" => array(id, turn), "cards" => array(id, count), "name" => name)
-	    public static JObject ParseDeck( string strDeckCode )
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Takes a valid deck code and returns a JObject of the related deck.
+        /// </summary>
+        /// <param name="strDeckCode"></param>
+        /// <returns></returns>
+        public static JObject ParseDeck( string strDeckCode )
         {
-		    var deckBytes = DecodeDeckString( strDeckCode);
+		    var deckBytes = DecodeDeckString( strDeckCode );
             if (deckBytes ==  null )
             {
                 return null;
             }
 
-		    var deck = ParseDeckInternal( strDeckCode, ref deckBytes);
+		    var deck = ParseDeckInternal( ref deckBytes );
             return deck;
         }
 
-        public static List<byte> RawDeckBytes( string strDeckCode )
-        {
-		    List<byte> deckBytes = DecodeDeckString( strDeckCode);
-            return deckBytes;
-        }
-
+        /// <summary>
+        /// First strips off prefix and then reverses string cleanup and converts from Base64String to a list of bytes.
+        /// </summary>
+        /// <param name="strDeckCode"></param>
+        /// <returns></returns>
         private static List<byte> DecodeDeckString( string strDeckCode )
         {
             //check for prefix
@@ -50,7 +63,14 @@ namespace ArtifactDeckTools
             return decoded;
         }
 
-        //reads out a var-int encoded block of bits, returns true if another chunk should follow
+        /// <summary>
+        /// Reads out a int encoded block of bits, returns true if another chunk should follow.
+        /// </summary>
+        /// <param name="chunk"></param>
+        /// <param name="numBits"></param>
+        /// <param name="currShift"></param>
+        /// <param name="outBits"></param>
+        /// <returns></returns>
         private static bool ReadBitsChunk( int chunk, int numBits, int currShift, ref int outBits )
         {
 		    int continueBit = (1 << numBits );
@@ -60,6 +80,16 @@ namespace ArtifactDeckTools
             return ( chunk & continueBit ) != 0;
         }
 
+        /// <summary>
+        /// Pulls next/requested Uint32 out of list of bytes
+        /// </summary>
+        /// <param name="baseValue"></param>
+        /// <param name="baseBits"></param>
+        /// <param name="data"></param>
+        /// <param name="indexStart"></param>
+        /// <param name="indexEnd"></param>
+        /// <param name="outValue"></param>
+        /// <returns></returns>
         private static bool ReadVarEncodedUint32( int baseValue, int baseBits, ref List<byte> data, ref int indexStart, int indexEnd, ref int outValue )
         {
 		    outValue = 0;
@@ -91,7 +121,16 @@ namespace ArtifactDeckTools
             return true;
         }
 
-        //handles decoding a card that was serialized
+        /// <summary>
+        /// Handles decoding a card that was serialized.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="indexStart"></param>
+        /// <param name="indexEnd"></param>
+        /// <param name="prevCardBase"></param>
+        /// <param name="outCount"></param>
+        /// <param name="outCardID"></param>
+        /// <returns></returns>
         private static bool ReadSerializedCard( ref List<byte> data, ref int indexStart, int indexEnd, ref int prevCardBase, ref int outCount, ref int outCardID )
         {
             //end of the memory block?
@@ -135,7 +174,13 @@ namespace ArtifactDeckTools
             return true;
         }
 
-        private static JObject ParseDeckInternal( string strDeckCode, ref List<byte> deckBytes )
+        /// <summary>
+        /// Handles checks to make sure we are on the same version and can decode provided list of bytes.
+        /// </summary>
+        /// <param name="strDeckCode"></param>
+        /// <param name="deckBytes"></param>
+        /// <returns></returns>
+        private static JObject ParseDeckInternal( ref List<byte> deckBytes )
         {
 		    int currentByteIndex = 0;
 		    int totalBytes = deckBytes.Count();
@@ -157,10 +202,10 @@ namespace ArtifactDeckTools
             {
 			    stringLength = deckBytes[currentByteIndex++];
             }
+
 		    int totalCardBytes = totalBytes - stringLength;
 
-              //grab the string size
-
+            //grab the string size
 			int computedChecksum = 0;
             for ( int i = currentByteIndex; i < totalCardBytes; i++ )
             {
@@ -179,9 +224,9 @@ namespace ArtifactDeckTools
             {
                 return null;
             }
+
+
             //now read in the heroes
-
-
             var heroes = new List<JObject>();
 			int prevCardBase = 0;
             for ( int currHero = 0; currHero < numHeroes; currHero++ )
@@ -217,42 +262,14 @@ namespace ArtifactDeckTools
 
             }
 
-
             var deckList = new JObject();
             deckList.Add(new JProperty("heroes", heroes));
             deckList.Add(new JProperty("cards", cards));
-            //deckList.Add(JProperty.FromObject(name));
             deckList.Add(new JProperty("name", name));
-            //deckList.Add(heroes);
-            //deckList.Add(cards);
-            //deckList.Add(name);
 
-            return deckList; //deckList;
-            //return array("heroes" => $heroes, "cards" => $cards, "name" => $name);
+            return deckList; 
         }
-    }
 
-    public class heroClass
-    {
-        int id;
-        int turn;
-
-        public heroClass(int id, int turn)
-        { 
-            this.id = id;
-            this.turn = turn;
-        }
-    }
-
-    public class cardClass
-    {
-        int id;
-        int count;
-
-        public cardClass(int id, int count)
-        {
-            this.id = id;
-            this.count = count;
-        }
+        #endregion
     }
 }
