@@ -86,7 +86,7 @@ function parseDeck(deckCode) {
     var byteIndex = 0
 
     const versionAndHeroes = deckCodeBytes[byteIndex++]
-    const version = versionAndHeroes >> 4
+    const version = versionAndHeroes >>> 4
     const checksum = deckCodeBytes[byteIndex++]
     const stringLength = version > 1 ? deckCodeBytes[byteIndex++] : 0
 
@@ -147,7 +147,7 @@ function cardDecoder(bytes) {
         const header = bytes[i++]
         const id = previousId + readVar(header, 5)
         previousId = id
-        var n = (header >> 6)
+        var n = (header >>> 6)
         if (n === 3) {
             n = readVar(0, 0) // n is higher than 3 and is encoded separately
         } else {
