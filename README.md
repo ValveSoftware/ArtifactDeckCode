@@ -112,6 +112,10 @@ array
 
 ```
 
+Other language implementations
+---
+
+* [python](https://github.com/iScrE4m/pyArtifact/tree/master/src/pyartifact/deck_encoding)
 
 
 Card Set API
