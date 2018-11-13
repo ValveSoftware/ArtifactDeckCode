@@ -116,6 +116,8 @@ class CArtifactDeckDecoder
 		return true;
 	}
 
+	// $deckBytes will be 1 indexed (due to unpack return value).  If you are using 0 based indexing
+	//	for your byte array, be sure to adjust appropriate below (see // 1 indexed)
 	private static function ParseDeckInternal( $strDeckCode, $deckBytes )
 	{
 		$nCurrentByteIndex = 1;
@@ -172,6 +174,7 @@ class CArtifactDeckDecoder
 
 		$cards = array();
 		$nPrevCardBase = 0;
+		// 1 indexed - change to $nCurrentByteIndex < $nTotalCardBytes if 0 indexed
 		while( $nCurrentByteIndex <= $nTotalCardBytes )
 		{
 			$nCardCount = 0;
