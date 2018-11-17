@@ -119,7 +119,7 @@ Card Set API
 
 If you're making a site that needs to show card information such as card images, names, and card
 text, you will need to do a 2 stage request to our servers.  The first request is to request the
-information for the set.  Current supported sets are 00 and 01.  You will need both to make get
+information for the set.  Current supported sets are 00 and 01.  You will need both to get
 all currently available cards.
 
 First, make a request to the url of the form below where setid is 00 or 01. You will receive 
@@ -197,7 +197,6 @@ The response will look similar to the one below for set 00
 
 ### Some notes about the json format
 
-* Currently only english is enabled, but more languages will be released at a later date
 * Text fields (card_name, card_text and the name on set_info) will contain 
 english and additional languages.
 * Image fields (mini-image, large-image, ingame-image) provide a default image and keys 
