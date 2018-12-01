@@ -122,7 +122,7 @@ First, make a request to the url of the form below where setid is 00 or 01. You 
 a response similar to the one below.
 
 
-```json
+```
 https://playartifact.com/cardset/<setid>/
 
 {
