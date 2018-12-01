@@ -1,5 +1,4 @@
-ArtifactDeckCode
----
+# ArtifactDeckCode
 
 This repository consists of 2 files that will assist in the encoding and decoding of deck 
 codes. These are source examples in PHP that can be used as is or as reference for porting 
@@ -8,8 +7,8 @@ corresponding json responses.
 
 ### Contents
 
-* deck_encoder.php - the deck encoder used to convert deck info into a text code
-* deck_decoder.php - the deck decoder used to take a text code and return the deck info
+* [deck_encoder.php](PHP/deck_encoder.php) - the deck encoder used to convert deck info into a text code.
+* [deck_decoder.php](PHP/deck_decoder.php) - the deck decoder used to take a text code and return the deck info.
 
 ### About Deck Codes
 
@@ -25,7 +24,7 @@ previews on Twitter, Facebook, Steam and other applications which support Open G
 and oEmbed.
 
 ### Example Deck Codes:
-Green/Black Example
+Green/Black Example:
 
 ```
 https://playartifact.com/d/ADCJWkTZX05uwGDCRV4XQGy3QGLmqUBg4GQJgGLGgO7AaABR3JlZW4vQmxhY2sgRXhhbXBsZQ__
@@ -57,8 +56,7 @@ Item Deck:
 2 Traveler's Cloak
 ```
 
-Blue/Red Example
-
+Blue/Red Example:
 ```
 https://playartifact.com/d/ADCJQUQI30zuwEYg2ABeF1Bu94BmWIBTEkLtAKlAZakAYmHh0JsdWUvUmVkIEV4YW1wbGU_
 
@@ -89,12 +87,12 @@ Item Deck:
 2 Traveler's Cloak
 ```
 
-
 Usage
 ---
-The specification for the deck is a series of nested arrays in the structure below:
-```
 
+The specification for the deck is a series of nested arrays in the structure below:
+
+```php
 array
   heroes (array, expected size 5 with 3 heroes on turn 1, 1 hero on 2 and 1 hero on 3 )
     0 - (array)
@@ -111,8 +109,6 @@ array
   name - (string, will be clamped to 63 bytes)
 
 ```
-
-
 
 Card Set API
 ---
@@ -141,57 +137,55 @@ In this example, "https://some host/some path/somefile.json".  Please cache the
 provided JSON for AT LEAST until the expire time provided.
 
 The response will look similar to the one below for set 00
-```
+
+```json
 {
-  "card_set": {
-    "version": 1,
-    "set_info": {
-      "set_id": 0,
-      "pack_item_def": 0,
-      "name": {
-        "english": "Base Set"
-      }
-    },
-    "card_list": [{
-
-      "card_id": 4000,
-      "base_card_id": 4000,
-      "card_type": "Hero",
-      "card_name": {
-        "english": "Farvhan the Dreamer"
+   "card_set": {
+      "version": 1,
+      "set_info": {
+         "set_id": 0,
+         "pack_item_def": 0,
+         "name": {
+            "english": "Base Set"
+         }
       },
-      "card_text": {
-        "english": "Pack Leadership<BR>\nFarvhan the Dreamer's allied neighbors have +1 Armor."
-      },
-      "mini_image": {
-        "default": "<url to png>"
-      },
-      "large_image": {
-        "default": "<url to png>"
-      },
-      "ingame_image": {
-        "default": "<url to png>"
-      },
-      "is_green": true,
-      "attack": 4,
-      "hit_points": 10,
-      "references": [{
-          "card_id": 4002,
-          "ref_type": "includes",
-          "count": 3
-        },
-        {
-          "card_id": 4001,
-          "ref_type": "passive_ability"
-        }
+      "card_list": [
+         {
+            "card_id": 4000,
+            "base_card_id": 4000,
+            "card_type": "Hero",
+            "card_name": {
+               "english": "Farvhan the Dreamer"
+            },
+            "card_text": {
+               "english": "Pack Leadership<BR>\nFarvhan the Dreamer's allied neighbors have +1 Armor."
+            },
+            "mini_image": {
+               "default": "<url to png>"
+            },
+            "large_image": {
+               "default": "<url to png>"
+            },
+            "ingame_image": {
+               "default":"<url to png>"
+            },
+            "is_green": true,
+            "attack": 4,
+            "hit_points": 10,
+            "references": [
+               {
+                  "card_id": 4002,
+                  "ref_type": "includes",
+                  "count": 3
+               },
+               {
+                  "card_id": 4001,
+                  "ref_type":" passive_ability"
+               }
+            ]
+         }
       ]
-
-
-    },
-    ..... more cards ....
-
-    ]
-  }
+   }
 }
 ```
 
