@@ -122,7 +122,7 @@ First, make a request to the url of the form below where setid is 00 or 01. You 
 a response similar to the one below.
 
 
-```
+```json
 https://playartifact.com/cardset/<setid>/
 
 {
@@ -136,7 +136,7 @@ After receiving the response, you must then request the JSON file from the host 
 In this example, "https://some host/some path/somefile.json".  Please cache the
 provided JSON for AT LEAST until the expire time provided.
 
-The response will look similar to the one below for set 00
+The response will look similar to the one below for set 00.
 
 ```json
 {
@@ -167,7 +167,7 @@ The response will look similar to the one below for set 00
                "default": "<url to png>"
             },
             "ingame_image": {
-               "default":"<url to png>"
+               "default": "<url to png>"
             },
             "is_green": true,
             "attack": 4,
@@ -191,14 +191,14 @@ The response will look similar to the one below for set 00
 
 ### Some notes about the json format
 
-* Text fields (card_name, card_text and the name on set_info) will contain 
+* Text fields (`card_name`, `card_text` and the name on `set_info`) will contain 
 english and additional languages.
-* Image fields (mini-image, large-image, ingame-image) provide a default image and keys 
+* Image fields (`mini-image`, `large-image`, `ingame-image`) provide a default image and keys 
 for each supported language. 
-* ref_type indicates a type of card reference:
-  * "includes" - indicates a secondary card which will be automatically included into decks when the card is
-added.  These should NOT be sent to the deck encoder.  The ref_type block will include the total count of these 
+* `ref_type` indicates a type of card reference:
+  * `includes` - indicates a secondary card which will be automatically included into decks when the card is
+added.  These should NOT be sent to the deck encoder.  The `ref_type` block will include the total count of these 
 cards that will be added.
-  * "references" - indicates that the card text mentions the specified card.
-  * "passive_ability" - a passive ability 
-  * "active_ability" - an ability which is activated by clicking on it.
+  * `references` - indicates that the card text mentions the specified card.
+  * `passive_ability` - a passive ability.
+  * `active_ability` - an ability which is activated by clicking on it.
